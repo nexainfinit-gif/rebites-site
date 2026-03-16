@@ -119,14 +119,14 @@
     .hero-social{font-size:.85rem;color:var(--gray-light);font-weight:500}
 
     /* ===== 3D iPHONE MOCKUP ===== */
-    .phone-wrapper{display:none;justify-content:center;align-items:center;perspective:1200px;position:relative}
-    @media(min-width:768px){.phone-wrapper{display:flex}}
+    .phone-wrapper{display:flex;justify-content:center;align-items:center;perspective:1200px;position:relative}
+    @media(max-width:767px){.phone-wrapper{margin-top:12px;transform:scale(.52);transform-origin:top center;pointer-events:none;opacity:.85}.phone-notif,.phone-stat{display:none}}
     .phone-glow{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.12) 0%,rgba(17,24,39,.06) 40%,transparent 70%);filter:blur(40px);z-index:0}
     .phone{width:280px;height:570px;background:linear-gradient(145deg,#0B1425 0%,#1E293B 50%,#0B1425 100%);border-radius:44px;padding:12px;position:relative;z-index:1;animation:float 6s ease-in-out infinite;box-shadow:0 25px 60px rgba(11,20,37,.30),0 0 0 1px rgba(255,255,255,.06) inset,0 2px 0 rgba(255,255,255,.04) inset}
     .phone::before{content:'';position:absolute;top:16px;left:50%;transform:translateX(-50%);width:90px;height:28px;background:#070d18;border-radius:20px;z-index:10}
     .phone::after{content:'';position:absolute;top:22px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:radial-gradient(circle,#1E293B 40%,#0B1425 70%);border-radius:50%;z-index:11}
     .phone-screen{width:100%;height:100%;background:#000;border-radius:34px;overflow:hidden;position:relative;box-shadow:0 0 0 1px rgba(0,0,0,.15) inset}
-    .phone-screenshot{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+    .phone-screenshot{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
     .phone-notif{position:absolute;top:90px;right:-30px;background:var(--white);border-radius:14px;padding:10px 14px;box-shadow:0 8px 30px rgba(11,20,37,.10);display:flex;align-items:center;gap:8px;z-index:5;animation:float-sm 4s ease-in-out infinite;animation-delay:1s}
     .phone-notif-dot{width:8px;height:8px;background:var(--success);border-radius:50%;flex-shrink:0}
     .phone-notif-text{font-size:.65rem;font-weight:600;color:var(--dark);line-height:1.3}
@@ -323,6 +323,55 @@
     .footer-links{display:flex;justify-content:center;gap:28px;list-style:none}
     .footer-links a{font-size:.78rem;color:rgba(255,255,255,.25);transition:color .25s}
     .footer-links a:hover{color:rgba(255,255,255,.65)}
+
+    /* ===== MOBILE OPTIMIZATIONS ===== */
+    @media(max-width:767px){
+      section{padding:64px 0}
+      .container{padding:0 18px}
+      h1{font-size:clamp(1.8rem,7vw,2.4rem)}
+      h2{font-size:clamp(1.5rem,6vw,2rem)}
+      .hero{padding-top:100px;padding-bottom:40px;min-height:auto}
+      .hero-badge{font-size:.75rem;padding:6px 14px;margin-bottom:20px}
+      .hero-sub{font-size:.95rem;margin-bottom:28px}
+      .hero-ctas{gap:10px}
+      .hero-ctas .btn{width:100%;padding:14px 24px;font-size:.88rem}
+      .hero-social{font-size:.78rem;margin-top:4px}
+      .reassurance{padding:32px 0}
+      .reassurance-grid{gap:16px}
+      .reassurance-icon{width:44px;height:44px;font-size:1.2rem}
+      .reassurance-item p{font-size:.8rem}
+      .problem-stat{padding:20px;margin-bottom:12px}
+      .problem-stat p{font-size:1rem}
+      .step{padding:24px 18px}
+      .step-number{width:44px;height:44px;font-size:1.2rem}
+      .step-icon{width:56px;height:56px;font-size:1.4rem}
+      .dashboard-showcase .container{padding:0 12px}
+      .dashboard-frame{border-radius:var(--radius-lg)}
+      .dashboard-topbar-mock{padding:8px 12px}
+      .dashboard-dot{width:8px;height:8px}
+      .dashboard-url{font-size:.6rem;padding:4px 10px}
+      .calc-card{padding:28px 18px}
+      .calc-input{width:80px;font-size:1.2rem;padding:10px 12px}
+      .calc-result{padding:20px 12px}
+      .calc-conclusion{font-size:1rem}
+      .pricing-grid{gap:16px;padding-top:16px}
+      .pricing-card{padding:28px 20px}
+      .pricing-badge{font-size:.72rem;padding:5px 16px;top:-12px}
+      .pricing-amount{font-size:2.2rem}
+      .sector-grid{gap:14px}
+      .sector-card{padding:24px 18px}
+      .sector-icon{font-size:2.2rem;margin-bottom:12px}
+      .fondateur-photo{width:120px;height:120px;font-size:3rem}
+      .fondateur-text p{font-size:.95rem}
+      .faq-question{font-size:.92rem;padding:18px 0}
+      .faq-icon{width:26px;height:26px;font-size:1rem}
+      .cta-final{padding:64px 0}
+      .cta-final .container{padding:0 18px}
+      .cta-form input,.cta-form select{padding:13px 14px;font-size:.88rem}
+      .footer{padding:32px 0}
+      .footer-links{gap:16px;flex-wrap:wrap}
+      .footer-links a{font-size:.72rem}
+    }
   </style>
 </head>
 <body>
@@ -379,7 +428,7 @@
         <div class="phone-glow"></div>
         <div class="phone">
           <div class="phone-screen">
-            <img src="screen/unnamed.png" alt="ReBites App Screenshot" class="phone-screenshot">
+            <img src="screen/Group 1.png" alt="ReBites App Screenshot" class="phone-screenshot">
           </div>
         </div>
         <div class="phone-notif">
