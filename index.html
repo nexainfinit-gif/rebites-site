@@ -3,952 +3,292 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ReBites · Programme de fidélité pour commerces de proximité</title>
-  <meta name="description" content="Programme de fidélité sans app, sans matériel, actif en 10 minutes. Pour cafés, restaurants, coiffeurs et instituts de beauté.">
+  <title>ReBites · Site en construction</title>
+  <meta name="description" content="ReBites arrive bientôt. Programme de fidélité sans app, sans matériel, actif en 10 minutes.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* ===== RESET ===== */
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    html{scroll-behavior:smooth;font-size:16px}
-    body{font-family:'Plus Jakarta Sans',sans-serif;color:#111827;background:#F7F8FC;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;position:relative}
-    img{max-width:100%;display:block}
-    a{color:inherit;text-decoration:none}
-    button{cursor:pointer;font-family:inherit;border:none}
-    input,select{font-family:inherit}
+    html{font-size:16px}
+    body{
+      font-family:'Plus Jakarta Sans',sans-serif;
+      color:#111827;background:#F7F8FC;
+      line-height:1.7;overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      min-height:100vh;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      position:relative;
+    }
 
-    /* ===== GRAIN OVERLAY ===== */
+    /* Grain overlay */
     body::after{
       content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.022;
       background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-repeat:repeat;background-size:150px;
     }
 
-    /* ===== VARIABLES ===== */
-    :root{
-      --primary:#111827;--primary-dark:#030712;--primary-glow:rgba(17,24,39,0.10);
-      --accent:#3B82F6;--accent-light:#60A5FA;--accent-glow:rgba(59,130,246,0.10);
-      --bg:#F7F8FC;--white:#FFFFFF;--dark:#0B1425;--text:#111827;--gray:#6B7280;--gray-light:#9CA3AF;
-      --success:#10B981;
-      --shadow-sm:0 2px 8px rgba(11,20,37,0.04);--shadow-md:0 4px 24px rgba(11,20,37,0.06);
-      --shadow-lg:0 8px 40px rgba(11,20,37,0.09);--shadow-cta:0 4px 14px rgba(17,24,39,0.18);
-      --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:24px;
-      --glass:rgba(255,255,255,0.60);--glass-border:rgba(255,255,255,0.40);
-    }
-
-    /* ===== TYPOGRAPHY ===== */
-    h1,h2,h3,h4{font-family:'DM Serif Display',serif;font-weight:400;line-height:1.15;color:var(--dark)}
-    h1{font-size:clamp(2.2rem,5.5vw,3.75rem)}
-    h2{font-size:clamp(1.8rem,4vw,2.85rem)}
-    h3{font-size:clamp(1.2rem,2.5vw,1.45rem)}
-
-    /* ===== LAYOUT ===== */
-    .container{max-width:1200px;margin:0 auto;padding:0 24px}
-    section{padding:100px 0;position:relative}
-    @media(min-width:768px){section{padding:130px 0}}
-
-    /* ===== SCROLL REVEAL ===== */
-    .reveal{opacity:0;transform:translateY(35px);transition:opacity 0.8s cubic-bezier(.16,1,.3,1),transform 0.8s cubic-bezier(.16,1,.3,1)}
-    .reveal.visible{opacity:1;transform:translateY(0)}
-    .reveal-delay-1{transition-delay:.12s}.reveal-delay-2{transition-delay:.24s}.reveal-delay-3{transition-delay:.36s}.reveal-delay-4{transition-delay:.48s}
-
-    /* ===== DECORATIVE BLOBS ===== */
+    /* Blobs décoratifs */
     .blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+    .blob-1{width:500px;height:500px;background:rgba(59,130,246,0.08);top:-150px;right:-100px}
+    .blob-2{width:400px;height:400px;background:rgba(16,185,129,0.06);bottom:-100px;left:-80px}
+    .blob-3{width:300px;height:300px;background:rgba(59,130,246,0.05);bottom:100px;right:10%}
 
-    /* ===== ANIMATIONS ===== */
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.92}}
-    @keyframes float{0%,100%{transform:translateY(0) rotateY(-12deg) rotateX(5deg)}50%{transform:translateY(-18px) rotateY(-12deg) rotateX(5deg)}}
-    @keyframes float-sm{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-    @keyframes gradient-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-    @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-    @keyframes counter-pop{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-    @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-
-    /* ===== BUTTONS ===== */
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 32px;border-radius:100px;font-weight:600;font-size:.9rem;transition:all .3s cubic-bezier(.25,.46,.45,.94);gap:8px;letter-spacing:.02em;position:relative;overflow:hidden}
-    .btn-primary{background:var(--primary);color:var(--white);box-shadow:0 1px 3px rgba(17,24,39,.12),0 1px 2px rgba(17,24,39,.08)}
-    .btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 4px 12px rgba(17,24,39,.18)}
-    .btn-primary:active{transform:translateY(0);box-shadow:0 1px 2px rgba(17,24,39,.10)}
-    .btn-secondary{background:var(--white);color:var(--primary);border:1.5px solid rgba(17,24,39,.12)}
-    .btn-secondary:hover{border-color:rgba(17,24,39,.30);background:var(--bg);transform:translateY(-2px);box-shadow:0 4px 12px rgba(17,24,39,.06)}
-    .btn-secondary:active{transform:translateY(0)}
-    .btn-accent{background:var(--primary);color:var(--white);box-shadow:0 1px 3px rgba(17,24,39,.12),0 1px 2px rgba(17,24,39,.08)}
-    .btn-accent:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 4px 12px rgba(17,24,39,.18)}
-    .btn-accent:active{transform:translateY(0)}
-
-    /* ===== NAVBAR ===== */
-    .navbar{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:all .4s cubic-bezier(.16,1,.3,1);background:transparent}
-    .navbar.scrolled{background:rgba(247,248,252,.88);backdrop-filter:blur(20px) saturate(1.4);box-shadow:0 1px 30px rgba(11,20,37,.05);padding:12px 0}
-    .navbar .container{display:flex;align-items:center;justify-content:space-between}
-    .logo{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--dark);letter-spacing:-.01em}
-    .logo span{color:var(--accent)}
-    .nav-links{display:none;gap:36px;list-style:none;align-items:center}
-    .nav-links a{font-size:.875rem;font-weight:600;color:var(--gray);transition:color .25s;position:relative}
-    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);border-radius:2px;transition:width .3s}
-    .nav-links a:hover{color:var(--dark)}
-    .nav-links a:hover::after{width:100%}
-    .nav-cta{display:none}
-    .nav-cta .btn{padding:10px 22px;font-size:.84rem}
-    @media(min-width:768px){.nav-links,.nav-cta{display:flex}}
-    .mobile-toggle{display:flex;flex-direction:column;gap:5px;background:none;padding:4px}
-    .mobile-toggle span{width:24px;height:2px;background:var(--dark);border-radius:2px;transition:all .3s}
-    @media(min-width:768px){.mobile-toggle{display:none}}
-    .mobile-menu{display:none;position:fixed;inset:0;background:rgba(247,248,252,.97);backdrop-filter:blur(20px);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:36px}
-    .mobile-menu.open{display:flex}
-    .mobile-menu a{font-size:1.3rem;font-weight:700;color:var(--dark)}
-    .mobile-close{position:absolute;top:20px;right:24px;background:none;font-size:2rem;color:var(--dark)}
-
-    /* ===== HERO ===== */
-    .hero{padding-top:130px;padding-bottom:60px;min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden}
-    .hero .blob-1{width:600px;height:600px;top:-150px;right:-100px;background:radial-gradient(circle,rgba(17,24,39,.08) 0%,transparent 70%)}
-    .hero .blob-2{width:500px;height:500px;bottom:-100px;left:-150px;background:radial-gradient(circle,rgba(59,130,246,.06) 0%,transparent 70%)}
-    .hero .container{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:48px;align-items:center}
-    @media(min-width:768px){.hero .container{grid-template-columns:1fr 1fr;gap:60px}}
-    @media(min-width:1024px){.hero .container{grid-template-columns:1.1fr .9fr;gap:80px}}
-    .hero-content{text-align:center}
-    @media(min-width:768px){.hero-content{text-align:left}}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--glass-border);padding:8px 18px;border-radius:100px;font-size:.82rem;font-weight:600;color:var(--accent);margin-bottom:28px}
-    .hero-badge .dot{width:8px;height:8px;background:var(--success);border-radius:50%;animation:pulse-dot 2s ease infinite}
-    .hero h1{margin-bottom:24px}
-    .hero h1 em{font-style:italic;color:var(--accent)}
-    .hero-sub{font-size:clamp(1rem,1.8vw,1.15rem);color:var(--gray);margin-bottom:36px;max-width:520px}
-    @media(max-width:767px){.hero-sub{margin-left:auto;margin-right:auto}}
-    .hero-ctas{display:flex;flex-direction:column;gap:14px;align-items:center;margin-bottom:28px}
-    @media(min-width:768px){.hero-ctas{flex-direction:row;justify-content:flex-start}}
-    .hero-social{font-size:.85rem;color:var(--gray-light);font-weight:500}
-
-    /* ===== 3D iPHONE MOCKUP ===== */
-    .phone-wrapper{display:flex;justify-content:center;align-items:center;perspective:1200px;position:relative}
-    @media(max-width:767px){.phone-wrapper{margin-top:12px;transform:scale(.52);transform-origin:top center;pointer-events:none;opacity:.85}.phone-notif,.phone-stat{display:none}}
-    .phone-glow{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.12) 0%,rgba(17,24,39,.06) 40%,transparent 70%);filter:blur(40px);z-index:0}
-    .phone{width:280px;height:570px;background:linear-gradient(145deg,#0B1425 0%,#1E293B 50%,#0B1425 100%);border-radius:44px;padding:12px;position:relative;z-index:1;animation:float 6s ease-in-out infinite;box-shadow:0 25px 60px rgba(11,20,37,.30),0 0 0 1px rgba(255,255,255,.06) inset,0 2px 0 rgba(255,255,255,.04) inset}
-    .phone::before{content:'';position:absolute;top:16px;left:50%;transform:translateX(-50%);width:90px;height:28px;background:#070d18;border-radius:20px;z-index:10}
-    .phone::after{content:'';position:absolute;top:22px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:radial-gradient(circle,#1E293B 40%,#0B1425 70%);border-radius:50%;z-index:11}
-    .phone-screen{width:100%;height:100%;background:#000;border-radius:34px;overflow:hidden;position:relative;box-shadow:0 0 0 1px rgba(0,0,0,.15) inset}
-    .phone-screenshot{width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
-    .phone-notif{position:absolute;top:90px;right:-30px;background:var(--white);border-radius:14px;padding:10px 14px;box-shadow:0 8px 30px rgba(11,20,37,.10);display:flex;align-items:center;gap:8px;z-index:5;animation:float-sm 4s ease-in-out infinite;animation-delay:1s}
-    .phone-notif-dot{width:8px;height:8px;background:var(--success);border-radius:50%;flex-shrink:0}
-    .phone-notif-text{font-size:.65rem;font-weight:600;color:var(--dark);line-height:1.3}
-    .phone-notif-text span{color:var(--accent)}
-    .phone-stat{position:absolute;bottom:80px;left:-24px;background:var(--white);border-radius:14px;padding:10px 14px;box-shadow:0 8px 30px rgba(11,20,37,.10);z-index:5;animation:float-sm 5s ease-in-out infinite;animation-delay:2.5s}
-    .phone-stat-value{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--accent)}
-    .phone-stat-label{font-size:.55rem;color:var(--gray);font-weight:600}
-
-    /* ===== SECTION DIVIDERS ===== */
-    .section-wave{position:relative;margin-top:-1px}
-    .section-wave svg{display:block;width:100%}
-
-    /* ===== REASSURANCE ===== */
-    .reassurance{padding:48px 0;background:var(--white);border-top:1px solid rgba(17,24,39,.04);position:relative;z-index:2}
-    .reassurance-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    @media(min-width:768px){.reassurance-grid{grid-template-columns:repeat(4,1fr);gap:40px}}
-    .reassurance-item{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
-    .reassurance-icon{width:52px;height:52px;border-radius:var(--radius-md);background:rgba(59,130,246,.07);display:flex;align-items:center;justify-content:center;font-size:1.5rem;transition:transform .3s,background .3s}
-    .reassurance-item:hover .reassurance-icon{transform:translateY(-4px);background:rgba(59,130,246,.12)}
-    .reassurance-item p{font-size:.88rem;font-weight:700;color:var(--dark)}
-
-    /* ===== PROBLEM ===== */
-    .problem{background:var(--white);overflow:hidden}
-    .problem .container{max-width:750px;text-align:center;position:relative;z-index:1}
-    .problem .blob-p{width:400px;height:400px;right:-200px;top:0;background:radial-gradient(circle,rgba(59,130,246,.05) 0%,transparent 70%)}
-    .problem h2{margin-bottom:32px}
-    .problem-narrative{font-size:clamp(1.05rem,2vw,1.2rem);color:var(--gray);margin-bottom:44px;line-height:1.9}
-    .problem-stat{background:var(--bg);border-left:4px solid var(--accent);padding:32px;border-radius:0 var(--radius-lg) var(--radius-lg) 0;text-align:left;margin-bottom:16px;transition:transform .3s;position:relative}
-    .problem-stat:hover{transform:translateX(4px)}
-    .problem-stat p{font-family:'DM Serif Display',serif;font-size:clamp(1.1rem,2.5vw,1.35rem);color:var(--dark);line-height:1.6}
-    .problem-stat .stat-highlight{color:var(--accent)}
-    .problem-source{text-align:right;font-size:.85rem;color:var(--gray-light);font-style:italic}
-
-    /* ===== SOLUTION ===== */
-    .solution{overflow:hidden}
-    .solution .blob-s{width:500px;height:500px;left:-200px;bottom:-100px;background:radial-gradient(circle,rgba(17,24,39,.06) 0%,transparent 70%)}
-    .solution h2{text-align:center;margin-bottom:64px;position:relative;z-index:1}
-    .solution h2 span{color:var(--accent)}
-    .steps{display:grid;gap:40px;position:relative;z-index:1}
-    @media(min-width:768px){.steps{grid-template-columns:repeat(3,1fr);gap:32px}}
-    .step{text-align:center;position:relative;padding:32px 24px;border-radius:var(--radius-xl);background:var(--glass);backdrop-filter:blur(10px);border:1px solid var(--glass-border);transition:all .4s cubic-bezier(.16,1,.3,1)}
-    .step:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);background:var(--white)}
-    .step-number{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));color:var(--white);font-family:'DM Serif Display',serif;font-size:1.4rem;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;box-shadow:0 4px 16px rgba(59,130,246,.25)}
-    .step-icon{width:72px;height:72px;border-radius:var(--radius-lg);background:rgba(59,130,246,.06);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:1.8rem}
-    .step h3{margin-bottom:10px}
-    .step p{color:var(--gray);font-size:.92rem}
-    @media(min-width:768px){
-      .step:not(:last-child)::after{content:'';position:absolute;top:52px;right:-16px;width:32px;height:2px;background:linear-gradient(to right,var(--accent),transparent);z-index:2}
+    /* Container */
+    .wrapper{
+      position:relative;z-index:1;
+      text-align:center;
+      max-width:600px;
+      padding:40px 24px;
     }
 
-    /* ===== DASHBOARD SHOWCASE ===== */
-    .dashboard-showcase{background:var(--bg);overflow:hidden}
-    .dashboard-showcase .container{max-width:1100px;text-align:center;position:relative;z-index:1}
-    .dashboard-showcase h2{margin-bottom:16px}
-    .dashboard-showcase h2 span{color:var(--accent)}
-    .dashboard-showcase-sub{color:var(--gray);font-size:1.05rem;margin-bottom:48px}
-    .dashboard-frame{
-      position:relative;background:#1a1a2e;border-radius:var(--radius-xl);
-      padding:0;box-shadow:0 25px 80px rgba(17,24,39,.20),0 0 0 1px rgba(255,255,255,.06) inset;
+    /* Logo */
+    .logo{
+      font-family:'DM Serif Display',serif;
+      font-size:2.2rem;color:#0B1425;
+      letter-spacing:-.01em;
+      margin-bottom:48px;
+      animation:fadeDown .8s ease-out both;
+    }
+    .logo span{color:#3B82F6}
+
+    /* Icône construction */
+    .icon-wrapper{
+      width:100px;height:100px;
+      margin:0 auto 32px;
+      background:rgba(59,130,246,0.08);
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      animation:fadeUp .8s ease-out .2s both;
+    }
+    .icon-wrapper svg{
+      animation:gear-spin 8s linear infinite;
+    }
+
+    /* Titre */
+    h1{
+      font-family:'DM Serif Display',serif;
+      font-weight:400;line-height:1.2;
+      color:#0B1425;
+      font-size:clamp(1.8rem,5vw,2.8rem);
+      margin-bottom:16px;
+      animation:fadeUp .8s ease-out .3s both;
+    }
+
+    /* Sous-titre */
+    .subtitle{
+      color:#6B7280;
+      font-size:1.05rem;
+      max-width:460px;
+      margin:0 auto 40px;
+      animation:fadeUp .8s ease-out .4s both;
+    }
+
+    /* Barre de progression */
+    .progress-bar{
+      width:100%;max-width:320px;
+      height:6px;
+      background:rgba(17,24,39,0.06);
+      border-radius:100px;
+      margin:0 auto 12px;
       overflow:hidden;
+      animation:fadeUp .8s ease-out .5s both;
     }
-    .dashboard-topbar-mock{
-      display:flex;align-items:center;gap:8px;padding:12px 18px;
-      background:rgba(255,255,255,.05);
+    .progress-fill{
+      height:100%;width:0;
+      background:linear-gradient(90deg,#3B82F6,#60A5FA);
+      border-radius:100px;
+      animation:loading 2.5s ease-out .8s forwards;
     }
-    .dashboard-dot{width:11px;height:11px;border-radius:50%}
-    .dashboard-dot.r{background:#ff5f57}
-    .dashboard-dot.y{background:#ffbd2e}
-    .dashboard-dot.g{background:#28c840}
-    .dashboard-url{
-      flex:1;margin-left:16px;background:rgba(255,255,255,.07);border-radius:6px;
-      padding:6px 16px;font-size:.73rem;color:rgba(255,255,255,.35);text-align:left;
-      font-family:monospace;
-    }
-    .dashboard-img{display:block;width:100%}
-    .dashboard-glow{
-      position:absolute;width:500px;height:500px;border-radius:50%;
-      background:radial-gradient(circle,rgba(59,130,246,.07) 0%,transparent 70%);
-      filter:blur(60px);top:-150px;right:-150px;z-index:0;pointer-events:none;
+    .progress-label{
+      font-size:.8rem;
+      color:#9CA3AF;
+      font-weight:500;
+      animation:fadeUp .8s ease-out .5s both;
+      margin-bottom:40px;
     }
 
-    /* ===== CALCULATOR ===== */
-    .calculator{background:var(--white);overflow:hidden}
-    .calculator .container{max-width:700px;text-align:center;position:relative;z-index:1}
-    .calculator h2{margin-bottom:16px}
-    .calculator h2 span{color:var(--accent)}
-    .calculator-sub{color:var(--gray);margin-bottom:48px;font-size:1.05rem}
-    .calc-card{background:var(--bg);border-radius:var(--radius-xl);padding:44px;text-align:center;border:1px solid rgba(17,24,39,.06);box-shadow:var(--shadow-sm)}
-    .calc-label{font-weight:700;margin-bottom:10px;font-size:1rem;color:var(--dark)}
-    .calc-input-row{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:10px}
-    .calc-input{width:100px;padding:12px 16px;border:2px solid rgba(59,130,246,.20);border-radius:var(--radius-md);font-size:1.5rem;font-weight:700;text-align:center;background:var(--white);color:var(--dark);transition:border-color .3s,box-shadow .3s}
-    .calc-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(59,130,246,.10)}
-    .calc-slider{width:100%;max-width:400px;margin:0 auto 32px;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;background:rgba(59,130,246,.15);outline:none}
-    .calc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:var(--accent);cursor:pointer;box-shadow:0 2px 10px rgba(59,130,246,.30);transition:transform .2s,box-shadow .2s}
-    .calc-slider::-webkit-slider-thumb:hover{transform:scale(1.2);box-shadow:0 4px 16px rgba(59,130,246,.40)}
-    .calc-slider::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:var(--accent);cursor:pointer;border:none;box-shadow:0 2px 10px rgba(59,130,246,.30)}
-    .avg-label{font-size:.85rem;color:var(--gray-light);margin-bottom:32px}
-    .calc-results{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
-    .calc-result{background:var(--white);border-radius:var(--radius-lg);padding:28px 16px;box-shadow:var(--shadow-sm);transition:transform .3s}
-    .calc-result:hover{transform:scale(1.03)}
-    .calc-result-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-light);margin-bottom:6px;font-weight:700}
-    .calc-result-value{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);color:var(--accent);transition:transform .3s}
-    .calc-result-value.pop{animation:counter-pop .4s ease}
-    .calc-conclusion{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--dark);padding-top:24px;border-top:1px solid rgba(17,24,39,.06)}
-    .calc-conclusion span{color:var(--accent)}
-    .calc-reasoning{font-size:.7rem;color:var(--gray-light);margin-top:12px;opacity:.6}
+    /* Notification input */
+    .notify-box{
+      animation:fadeUp .8s ease-out .6s both;
+    }
+    .notify-box p{
+      font-size:.9rem;
+      font-weight:600;
+      color:#111827;
+      margin-bottom:12px;
+    }
+    .notify-form{
+      display:flex;gap:8px;
+      max-width:400px;
+      margin:0 auto;
+    }
+    .notify-form input{
+      flex:1;
+      padding:12px 18px;
+      border:1.5px solid rgba(17,24,39,0.10);
+      border-radius:100px;
+      font-size:.9rem;
+      font-family:inherit;
+      background:#fff;
+      outline:none;
+      transition:border-color .3s;
+    }
+    .notify-form input:focus{
+      border-color:#3B82F6;
+    }
+    .notify-form button{
+      padding:12px 24px;
+      background:#111827;
+      color:#fff;
+      border:none;
+      border-radius:100px;
+      font-weight:600;
+      font-size:.85rem;
+      font-family:inherit;
+      cursor:pointer;
+      transition:all .3s;
+      white-space:nowrap;
+    }
+    .notify-form button:hover{
+      background:#030712;
+      transform:translateY(-2px);
+      box-shadow:0 4px 12px rgba(17,24,39,.18);
+    }
 
-    /* ===== PRICING ===== */
-    .pricing{overflow:hidden}
-    .pricing .blob-pr{width:500px;height:500px;right:-200px;top:50px;background:radial-gradient(circle,rgba(59,130,246,.05) 0%,transparent 70%)}
-    .pricing h2{text-align:center;margin-bottom:16px;position:relative;z-index:1}
-    .pricing-sub{text-align:center;color:var(--gray);margin-bottom:56px;font-size:1.05rem;position:relative;z-index:1}
-    .pricing-grid{display:grid;gap:24px;position:relative;z-index:1;padding-top:20px}
-    @media(min-width:768px){.pricing-grid{grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}}
-    .pricing-card{background:var(--white);border-radius:var(--radius-xl);padding:38px 28px;border:1px solid rgba(17,24,39,.06);box-shadow:var(--shadow-sm);transition:all .4s cubic-bezier(.16,1,.3,1);position:relative;overflow:visible}
-    .pricing-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
-    .pricing-card.popular{border:2px solid var(--primary);box-shadow:var(--shadow-lg)}
-    @media(min-width:768px){.pricing-card.popular{transform:scale(1.05)}.pricing-card.popular:hover{transform:scale(1.05) translateY(-6px)}}
-    .pricing-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--primary),var(--accent));color:var(--white);padding:7px 22px;border-radius:100px;font-size:.78rem;font-weight:700;white-space:nowrap;z-index:2}
-    .pricing-name{font-family:'DM Serif Display',serif;font-size:1.35rem;margin-bottom:4px}
-    .pricing-desc{font-size:.85rem;color:var(--gray);margin-bottom:20px}
-    .pricing-price{margin-bottom:24px}
-    .pricing-amount{font-family:'DM Serif Display',serif;font-size:2.75rem;color:var(--dark)}
-    .pricing-period{font-size:.9rem;color:var(--gray)}
-    .pricing-features{list-style:none;margin-bottom:28px}
-    .pricing-features li{padding:8px 0;font-size:.88rem;color:var(--gray);display:flex;align-items:flex-start;gap:10px}
-    .pricing-features li::before{content:'';flex-shrink:0;width:20px;height:20px;background:rgba(16,185,129,.08);border-radius:50%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2310B981' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");background-size:12px;background-position:center;background-repeat:no-repeat;margin-top:2px}
-    .pricing-guarantee{text-align:center;font-size:.78rem;color:var(--gray-light);margin-top:10px}
+    /* Réseaux sociaux */
+    .socials{
+      margin-top:48px;
+      display:flex;gap:16px;
+      justify-content:center;
+      animation:fadeUp .8s ease-out .7s both;
+    }
+    .socials a{
+      width:44px;height:44px;
+      display:flex;align-items:center;justify-content:center;
+      background:#fff;
+      border:1.5px solid rgba(17,24,39,0.08);
+      border-radius:50%;
+      color:#6B7280;
+      transition:all .3s;
+      text-decoration:none;
+    }
+    .socials a:hover{
+      border-color:rgba(17,24,39,0.20);
+      color:#111827;
+      transform:translateY(-2px);
+      box-shadow:0 4px 12px rgba(17,24,39,.06);
+    }
 
-    /* ===== POUR QUI ===== */
-    .pour-qui{background:var(--white);overflow:hidden}
-    .pour-qui h2{text-align:center;margin-bottom:16px}
-    .pour-qui-sub{text-align:center;color:var(--gray);margin-bottom:56px;font-size:1.05rem}
-    .sector-grid{display:grid;gap:20px;grid-template-columns:1fr}
-    @media(min-width:768px){.sector-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(min-width:1024px){.sector-grid{grid-template-columns:repeat(4,1fr)}}
-    .sector-card{background:var(--bg);border-radius:var(--radius-lg);padding:34px 24px;text-align:center;transition:all .4s cubic-bezier(.16,1,.3,1);border:1px solid transparent;position:relative}
-    .sector-card:hover{border-color:rgba(59,130,246,.15);transform:translateY(-6px) rotateX(2deg);box-shadow:var(--shadow-lg)}
-    .sector-icon{font-size:2.8rem;margin-bottom:18px;display:block}
-    .sector-card h3{margin-bottom:10px;font-size:1.12rem}
-    .sector-card p{font-size:.88rem;color:var(--gray)}
+    /* Footer */
+    .footer-text{
+      margin-top:48px;
+      font-size:.78rem;
+      color:#9CA3AF;
+      animation:fadeUp .8s ease-out .8s both;
+    }
 
-    /* ===== FONDATEUR ===== */
-    .fondateur{overflow:hidden}
-    .fondateur .container{max-width:800px;position:relative;z-index:1}
-    .fondateur h2{text-align:center;margin-bottom:48px}
-    .fondateur-content{display:flex;flex-direction:column;gap:32px;align-items:center}
-    @media(min-width:768px){.fondateur-content{flex-direction:row;gap:48px}}
-    .fondateur-photo{width:170px;height:170px;border-radius:50%;background:linear-gradient(135deg,rgba(17,24,39,.10),rgba(59,130,246,.10));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:4.2rem;color:var(--accent);position:relative}
-    .fondateur-photo::after{content:'';position:absolute;inset:-6px;border-radius:50%;border:2px dashed rgba(59,130,246,.20);animation:gradient-spin 20s linear infinite}
-    .fondateur-text p{color:var(--gray);font-size:1.05rem;line-height:1.8;margin-bottom:20px}
-    .fondateur-sig{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--accent)}
+    /* Animations */
+    @keyframes fadeDown{
+      from{opacity:0;transform:translateY(-20px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(25px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    @keyframes loading{
+      to{width:65%}
+    }
+    @keyframes gear-spin{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
 
-    /* ===== FAQ ===== */
-    .faq{background:var(--white);overflow:hidden}
-    .faq h2{text-align:center;margin-bottom:48px}
-    .faq .container{max-width:750px;position:relative;z-index:1}
-    .faq-item{border-bottom:1px solid rgba(17,24,39,.05)}
-    .faq-question{width:100%;background:none;padding:24px 0;text-align:left;font-size:1.02rem;font-weight:600;color:var(--dark);display:flex;justify-content:space-between;align-items:center;gap:16px;transition:color .25s}
-    .faq-question:hover{color:var(--accent)}
-    .faq-icon{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:rgba(59,130,246,.08);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--accent);transition:all .4s cubic-bezier(.16,1,.3,1)}
-    .faq-item.open .faq-icon{transform:rotate(45deg);background:var(--accent);color:var(--white)}
-    .faq-answer{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1),padding .4s}
-    .faq-item.open .faq-answer{max-height:200px;padding-bottom:24px}
-    .faq-answer p{color:var(--gray);font-size:.92rem;line-height:1.7}
-
-    /* ===== CTA FINAL ===== */
-    .cta-final{background:linear-gradient(145deg,#060a14 0%,var(--dark) 40%,#131c2e 100%);color:var(--white);text-align:center;position:relative;overflow:hidden}
-    .cta-final::before{content:'';position:absolute;top:-40%;right:-15%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.10) 0%,transparent 65%)}
-    .cta-final::after{content:'';position:absolute;bottom:-30%;left:-10%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.08) 0%,transparent 60%)}
-    .cta-final .container{position:relative;z-index:1;max-width:580px}
-    .cta-final h2{color:var(--white);margin-bottom:14px}
-    .cta-final-badge{display:inline-block;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);padding:8px 22px;border-radius:100px;font-size:.88rem;font-weight:600;color:rgba(96,165,250,1);margin-bottom:32px;backdrop-filter:blur(8px)}
-    .cta-sub{color:rgba(255,255,255,.60);margin-bottom:40px;font-size:1.02rem}
-    .cta-form{display:flex;flex-direction:column;gap:14px;margin-bottom:20px}
-    .form-row{display:flex;flex-direction:column;gap:14px}
-    @media(min-width:768px){.form-row{flex-direction:row}}
-    .cta-form input,.cta-form select{padding:15px 18px;border:1px solid rgba(255,255,255,.10);border-radius:var(--radius-md);background:rgba(255,255,255,.05);backdrop-filter:blur(8px);color:var(--white);font-size:.92rem;transition:all .3s;flex:1}
-    .cta-form input::placeholder{color:rgba(255,255,255,.30)}
-    .cta-form input:focus,.cta-form select:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,.08);box-shadow:0 0 0 4px rgba(59,130,246,.12)}
-    .cta-form select{cursor:pointer;color:rgba(255,255,255,.30)}
-    .cta-form select.selected{color:var(--white)}
-    .cta-form option{color:var(--dark);background:var(--white)}
-    .form-error{font-size:.78rem;color:var(--accent-light);text-align:left;display:none;margin-top:-8px}
-    .form-error.show{display:block}
-    .form-success{display:none;background:rgba(16,185,129,.10);border:1px solid rgba(16,185,129,.20);border-radius:var(--radius-md);padding:24px;color:var(--white);backdrop-filter:blur(8px)}
-    .form-success.show{display:block}
-    .cta-legal{font-size:.78rem;color:rgba(255,255,255,.30)}
-
-    /* ===== FOOTER ===== */
-    .footer{background:#050810;padding:44px 0;text-align:center}
-    .footer .logo{font-size:1.3rem;margin-bottom:8px}
-    .footer-tagline{color:rgba(255,255,255,.30);font-size:.84rem;margin-bottom:24px}
-    .footer-links{display:flex;justify-content:center;gap:28px;list-style:none}
-    .footer-links a{font-size:.78rem;color:rgba(255,255,255,.25);transition:color .25s}
-    .footer-links a:hover{color:rgba(255,255,255,.65)}
-
-    /* ===== MOBILE OPTIMIZATIONS ===== */
-    @media(max-width:767px){
-      section{padding:64px 0}
-      .container{padding:0 18px}
-      h1{font-size:clamp(1.8rem,7vw,2.4rem)}
-      h2{font-size:clamp(1.5rem,6vw,2rem)}
-      .hero{padding-top:100px;padding-bottom:40px;min-height:auto}
-      .hero-badge{font-size:.75rem;padding:6px 14px;margin-bottom:20px}
-      .hero-sub{font-size:.95rem;margin-bottom:28px}
-      .hero-ctas{gap:10px}
-      .hero-ctas .btn{width:100%;padding:14px 24px;font-size:.88rem}
-      .hero-social{font-size:.78rem;margin-top:4px}
-      .reassurance{padding:32px 0}
-      .reassurance-grid{gap:16px}
-      .reassurance-icon{width:44px;height:44px;font-size:1.2rem}
-      .reassurance-item p{font-size:.8rem}
-      .problem-stat{padding:20px;margin-bottom:12px}
-      .problem-stat p{font-size:1rem}
-      .step{padding:24px 18px}
-      .step-number{width:44px;height:44px;font-size:1.2rem}
-      .step-icon{width:56px;height:56px;font-size:1.4rem}
-      .dashboard-showcase .container{padding:0 12px}
-      .dashboard-frame{border-radius:var(--radius-lg)}
-      .dashboard-topbar-mock{padding:8px 12px}
-      .dashboard-dot{width:8px;height:8px}
-      .dashboard-url{font-size:.6rem;padding:4px 10px}
-      .calc-card{padding:28px 18px}
-      .calc-input{width:80px;font-size:1.2rem;padding:10px 12px}
-      .calc-result{padding:20px 12px}
-      .calc-conclusion{font-size:1rem}
-      .pricing-grid{gap:16px;padding-top:16px}
-      .pricing-card{padding:28px 20px}
-      .pricing-badge{font-size:.72rem;padding:5px 16px;top:-12px}
-      .pricing-amount{font-size:2.2rem}
-      .sector-grid{gap:14px}
-      .sector-card{padding:24px 18px}
-      .sector-icon{font-size:2.2rem;margin-bottom:12px}
-      .fondateur-photo{width:120px;height:120px;font-size:3rem}
-      .fondateur-text p{font-size:.95rem}
-      .faq-question{font-size:.92rem;padding:18px 0}
-      .faq-icon{width:26px;height:26px;font-size:1rem}
-      .cta-final{padding:64px 0}
-      .cta-final .container{padding:0 18px}
-      .cta-form input,.cta-form select{padding:13px 14px;font-size:.88rem}
-      .footer{padding:32px 0}
-      .footer-links{gap:16px;flex-wrap:wrap}
-      .footer-links a{font-size:.72rem}
+    /* Responsive */
+    @media(max-width:480px){
+      .notify-form{flex-direction:column}
+      .notify-form input,.notify-form button{width:100%}
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar" id="navbar">
-    <div class="container">
-      <a href="#" class="logo">Re<span>Bites</span></a>
-      <ul class="nav-links">
-        <li><a href="#solution">Comment ça marche</a></li>
-        <li><a href="#pricing">Tarifs</a></li>
-        <li><a href="#faq">FAQ</a></li>
-      </ul>
-      <div class="nav-cta">
-        <a href="https://app.rebites.be/dashboard/login" class="btn btn-secondary">Login</a>
-        <a href="#cta-final" class="btn btn-primary">Tester gratuitement</a>
-      </div>
-      <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+  <!-- Blobs décoratifs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="wrapper">
+
+    <!-- Logo -->
+    <div class="logo">Re<span>Bites</span></div>
+
+    <!-- Icône -->
+    <div class="icon-wrapper">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
     </div>
-  </nav>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobile-menu">
-    <button class="mobile-close" id="mobile-close" aria-label="Fermer">&times;</button>
-    <a href="#solution" class="mobile-link">Comment ça marche</a>
-    <a href="#pricing" class="mobile-link">Tarifs</a>
-    <a href="#faq" class="mobile-link">FAQ</a>
-    <a href="https://app.rebites.be/dashboard/login" class="btn btn-secondary">Login</a>
-    <a href="#cta-final" class="btn btn-primary">Tester gratuitement</a>
-  </div>
+    <!-- Titre -->
+    <h1>Site en construction</h1>
+    <p class="subtitle">Nous travaillons dur pour vous offrir la meilleure expérience. ReBites arrive très bientôt !</p>
 
-  <!-- ==================== HERO ==================== -->
-  <section class="hero" id="hero">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge reveal">
-          <span class="dot"></span>
-          Lancement septembre 2026
-        </div>
-        <h1 class="reveal reveal-delay-1">Tes clients adorent ce que tu fais. <em>Alors pourquoi ils ne reviennent pas ?</em></h1>
-        <p class="hero-sub reveal reveal-delay-2">ReBites, c'est le programme de fidélité qui fait revenir tes clients. Sans app à installer, sans matériel, prêt en 10 minutes.</p>
-        <div class="hero-ctas reveal reveal-delay-3">
-          <a href="#cta-final" class="btn btn-primary">Tester gratuitement pendant 14 jours</a>
-          <a href="#solution" class="btn btn-secondary">Voir comment ça marche</a>
-        </div>
-        <p class="hero-social reveal reveal-delay-4">Lancement le 1er septembre · Déjà 127 commerçants sur la liste d'attente</p>
-      </div>
+    <!-- Progression -->
+    <div class="progress-bar"><div class="progress-fill"></div></div>
+    <p class="progress-label">Progression estimée : 65%</p>
 
-      <div class="phone-wrapper reveal reveal-delay-2">
-        <div class="phone-glow"></div>
-        <div class="phone">
-          <div class="phone-screen">
-            <img src="screen/Group 1.png" alt="ReBites App Screenshot" class="phone-screenshot">
-          </div>
-        </div>
-        <div class="phone-notif">
-          <div class="phone-notif-dot"></div>
-          <div class="phone-notif-text"><span>+3 clients</span><br>cette semaine</div>
-        </div>
-        <div class="phone-stat">
-          <div class="phone-stat-value">+27%</div>
-          <div class="phone-stat-label">de clients fidèles</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WAVE: Hero → Reassurance -->
-  <div class="section-wave">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="height:60px">
-      <path d="M0,40 C360,80 720,0 1440,40 L1440,0 L0,0 Z" fill="#F7F8FC"/>
-    </svg>
-  </div>
-
-  <!-- ==================== REASSURANCE ==================== -->
-  <section class="reassurance">
-    <div class="container">
-      <div class="reassurance-grid">
-        <div class="reassurance-item reveal">
-          <div class="reassurance-icon"><svg width="24" height="24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg></div>
-          <p>Tes clients n'installent rien</p>
-        </div>
-        <div class="reassurance-item reveal reveal-delay-1">
-          <div class="reassurance-icon"><svg width="24" height="24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <p>Prêt en 10 minutes chrono</p>
-        </div>
-        <div class="reassurance-item reveal reveal-delay-2">
-          <div class="reassurance-icon"><svg width="24" height="24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-          <p>Tu arrêtes quand tu veux</p>
-        </div>
-        <div class="reassurance-item reveal reveal-delay-3">
-          <div class="reassurance-icon"><svg width="24" height="24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-          <p>Une vraie personne te répond</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WAVE -->
-  <div class="section-wave">
-    <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px">
-      <path d="M0,0 L0,30 Q360,55 720,30 Q1080,5 1440,30 L1440,0 Z" fill="#FFFFFF"/>
-    </svg>
-  </div>
-
-  <!-- ==================== PROBLEM ==================== -->
-  <section class="problem" id="problem">
-    <div class="blob blob-p"></div>
-    <div class="container reveal">
-      <h2>Tu connais ce silence quand un habitué ne revient plus ?</h2>
-      <p class="problem-narrative">
-        Tu fais du bon boulot. Tes clients repartent contents. Mais un jour, tu réalises que Marc, celui qui venait tous les mois, ça fait 3 mois que tu ne l'as pas vu. Pas de dispute, pas de message. Il est juste... parti. Chez quelqu'un d'autre. Et le pire ? Tu ne t'en es rendu compte que trop tard.
-      </p>
-      <div class="problem-stat">
-        <p>
-          <span class="stat-highlight">Faire revenir un client coûte 5 fois moins cher</span> que d'en trouver un nouveau. Pourtant, la plupart des commerçants dépensent toute leur énergie à chercher des nouveaux et oublient ceux qu'ils ont déjà.
-        </p>
-      </div>
-      <p class="problem-source">Source : Solvay Brussels School of Economics & Management</p>
-    </div>
-  </section>
-
-  <!-- WAVE -->
-  <div class="section-wave">
-    <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px">
-      <path d="M0,30 Q360,0 720,30 Q1080,60 1440,30 L1440,0 L0,0 Z" fill="#FFFFFF"/>
-    </svg>
-  </div>
-
-  <!-- ==================== SOLUTION ==================== -->
-  <section class="solution" id="solution">
-    <div class="blob blob-s"></div>
-    <div class="container">
-      <h2 class="reveal">Simple comme <span>bonjour</span></h2>
-      <div class="steps">
-        <div class="step reveal">
-          <div class="step-number">1</div>
-          <div class="step-icon"><svg width="32" height="32" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-          <h3>Tu choisis tes récompenses</h3>
-          <p>Points ou tampons, à tes couleurs. « Un café offert au bout de 10 visites ? » C'est toi qui décides. 10 minutes et c'est fait.</p>
-        </div>
-        <div class="step reveal reveal-delay-1">
-          <div class="step-number">2</div>
-          <div class="step-icon"><svg width="32" height="32" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <h3>Tes clients sont inscrits en un instant</h3>
-          <p>Ils scannent un QR code à la caisse, c'est tout. Pas d'app à télécharger, pas de carte à garder. Ils sont dedans.</p>
-        </div>
-        <div class="step reveal reveal-delay-2">
-          <div class="step-number">3</div>
-          <div class="step-icon"><svg width="32" height="32" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div>
-          <h3>Tu sais qui n'est pas revenu et tu le relances</h3>
-          <p>ReBites te prévient quand un client n'est pas venu depuis un moment. Un message part en un clic. Il revient.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== DASHBOARD SHOWCASE ==================== -->
-  <section class="dashboard-showcase">
-    <div class="container">
-      <h2 class="reveal">Un tableau de bord <span>qui travaille pour toi</span></h2>
-      <p class="dashboard-showcase-sub reveal reveal-delay-1">Clients actifs, taux de fidélité, récompenses, relances : tout est là, en un coup d'oeil.</p>
-      <div class="dashboard-frame reveal reveal-delay-2" style="position:relative">
-        <div class="dashboard-glow"></div>
-        <div class="dashboard-topbar-mock">
-          <span class="dashboard-dot r"></span>
-          <span class="dashboard-dot y"></span>
-          <span class="dashboard-dot g"></span>
-          <span class="dashboard-url">app.rebites.be/dashboard</span>
-        </div>
-        <img src="screen/dashboard-overview.png" alt="Dashboard ReBites" class="dashboard-img" loading="lazy">
-      </div>
-    </div>
-  </section>
-
-  <!-- WAVE -->
-  <div class="section-wave">
-    <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px">
-      <path d="M0,0 L0,30 Q480,55 960,25 Q1200,10 1440,30 L1440,0 Z" fill="#FFFFFF"/>
-    </svg>
-  </div>
-
-  <!-- ==================== CALCULATOR ==================== -->
-  <section class="calculator" id="calculator">
-    <div class="container">
-      <h2 class="reveal">L'argent que tu <span>laisses filer</span> chaque mois</h2>
-      <p class="calculator-sub reveal">Déplace le curseur. Le chiffre va te surprendre.</p>
-      <div class="calc-card reveal">
-        <p class="calc-label">Combien de clients tu vois par semaine ?</p>
-        <div class="calc-input-row">
-          <input type="number" class="calc-input" id="calcInput" value="40" min="1" max="500">
-          <span style="color:var(--gray)">clients / semaine</span>
-        </div>
-        <input type="range" class="calc-slider" id="calcSlider" min="5" max="200" value="40">
-        <p class="avg-label">Panier moyen estimé : 35 €</p>
-        <div class="calc-results">
-          <div class="calc-result">
-            <p class="calc-result-label">Tu perds / mois</p>
-            <p class="calc-result-value" id="lossMonth">560 €</p>
-          </div>
-          <div class="calc-result">
-            <p class="calc-result-label">Tu perds / an</p>
-            <p class="calc-result-value" id="lossYear">6 720 €</p>
-          </div>
-        </div>
-        <p class="calc-conclusion">ReBites te coûte <span>39,99 €/mois</span>. Il te rapporte le reste.</p>
-        <p class="calc-reasoning">Calcul : clients/semaine × 4 semaines × 10% d'attrition × 35 € de panier moyen</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- WAVE -->
-  <div class="section-wave">
-    <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px">
-      <path d="M0,30 Q360,0 720,30 Q1080,60 1440,30 L1440,0 L0,0 Z" fill="#FFFFFF"/>
-    </svg>
-  </div>
-
-  <!-- ==================== PRICING ==================== -->
-  <section class="pricing" id="pricing">
-    <div class="blob blob-pr"></div>
-    <div class="container">
-      <h2 class="reveal">Choisis ce qui te correspond</h2>
-      <p class="pricing-sub reveal">Teste 14 jours gratuitement. Pas besoin de carte bancaire. Tu arrêtes quand tu veux.</p>
-      <div class="pricing-grid">
-        <div class="pricing-card reveal">
-          <p class="pricing-name">Essentiel</p>
-          <p class="pricing-desc">L'idéal pour commencer à fidéliser</p>
-          <div class="pricing-price">
-            <span class="pricing-amount">39,99€</span>
-            <span class="pricing-period">/mois</span>
-          </div>
-          <ul class="pricing-features">
-            <li>Jusqu'à 200 clients suivis</li>
-            <li>1 programme de récompenses</li>
-            <li>Tu vois qui revient et qui disparaît</li>
-            <li>QR code prêt à imprimer pour ta caisse</li>
-            <li>Tes clients reçoivent un email quand ils gagnent un cadeau</li>
-            <li>On te répond par email sous 24h</li>
-          </ul>
-          <a href="#cta-final" class="btn btn-secondary" style="width:100%">Essayer gratuitement</a>
-          <p class="pricing-guarantee">14 jours gratuits · Tu arrêtes quand tu veux</p>
-        </div>
-        <div class="pricing-card popular reveal reveal-delay-1">
-          <div class="pricing-badge">Le choix préféré</div>
-          <p class="pricing-name">Complet</p>
-          <p class="pricing-desc">Pour vraiment garder tes clients</p>
-          <div class="pricing-price">
-            <span class="pricing-amount">59,99€</span>
-            <span class="pricing-period">/mois</span>
-          </div>
-          <ul class="pricing-features">
-            <li>Tous tes clients, sans limite</li>
-            <li>Jusqu'à 3 programmes différents (ex : points + parrainage)</li>
-            <li>Envoie un petit message aux clients qui ne viennent plus</li>
-            <li>ReBites te prévient quand un habitué a disparu</li>
-            <li>Tu vois ce qui marche : quelles récompenses plaisent, qui revient le plus</li>
-            <li>Tout est à tes couleurs, ton logo, ton style</li>
-            <li>On te répond en priorité, par email ou par téléphone</li>
-          </ul>
-          <a href="#cta-final" class="btn btn-primary" style="width:100%">Essayer gratuitement</a>
-          <p class="pricing-guarantee">14 jours gratuits · Sans carte bancaire · Tu arrêtes quand tu veux</p>
-        </div>
-        <div class="pricing-card reveal reveal-delay-2">
-          <p class="pricing-name">Multi</p>
-          <p class="pricing-desc">Pour ceux qui ont plusieurs adresses</p>
-          <div class="pricing-price">
-            <span class="pricing-amount">89,99€</span>
-            <span class="pricing-period">/mois</span>
-          </div>
-          <ul class="pricing-features">
-            <li>Tout ce qui est dans le plan Complet</li>
-            <li>Autant de programmes que tu veux</li>
-            <li>Gère jusqu'à 5 adresses depuis un seul endroit</li>
-            <li>Les messages partent tout seuls au bon moment</li>
-            <li>Connecte-toi à ta caisse ou ton agenda si tu veux</li>
-            <li>Exporte tes chiffres quand tu en as besoin</li>
-            <li>Une personne dédiée pour t'accompagner</li>
-          </ul>
-          <a href="#cta-final" class="btn btn-secondary" style="width:100%">Essayer gratuitement</a>
-          <p class="pricing-guarantee">14 jours gratuits · Tu arrêtes quand tu veux</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WAVE -->
-  <div class="section-wave">
-    <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px">
-      <path d="M0,0 L0,30 Q360,55 720,30 Q1080,5 1440,30 L1440,0 Z" fill="#FFFFFF"/>
-    </svg>
-  </div>
-
-  <!-- ==================== POUR QUI ==================== -->
-  <section class="pour-qui" id="pour-qui">
-    <div class="container">
-      <h2 class="reveal">Tu te reconnais là-dedans ?</h2>
-      <p class="pour-qui-sub reveal">ReBites est fait pour les commerçants qui bossent dur et veulent que ça se voie dans leur chiffre.</p>
-      <div class="sector-grid">
-        <div class="sector-card reveal">
-          <span class="sector-icon"><svg width="36" height="36" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
-          <h3>Cafés & restaurants</h3>
-          <p>Le client qui vient une fois puis disparaît ? Avec ReBites, son 5e café est offert, et il revient chaque semaine.</p>
-        </div>
-        <div class="sector-card reveal reveal-delay-1">
-          <span class="sector-icon"><svg width="36" height="36" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></span>
-          <h3>Coiffeurs</h3>
-          <p>Un client repousse son rendez-vous de 6 à 10 semaines ? Un petit rappel au bon moment, et il rebook.</p>
-        </div>
-        <div class="sector-card reveal reveal-delay-2">
-          <span class="sector-icon"><svg width="36" height="36" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
-          <h3>Esthéticiennes & instituts</h3>
-          <p>Tu fais un soin parfait, on te dit « je reviens vite ». 3 mois passent, rien. ReBites envoie un message avant qu'on t'oublie.</p>
-        </div>
-        <div class="sector-card reveal reveal-delay-3">
-          <span class="sector-icon"><svg width="36" height="36" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-          <h3>Boutiques & commerces</h3>
-          <p>Fleuriste, épicerie, boutique de quartier : si tes clients reviennent, ReBites les fait revenir plus souvent.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WAVE -->
-  <div class="section-wave">
-    <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px">
-      <path d="M0,30 Q480,0 960,35 Q1200,50 1440,25 L1440,0 L0,0 Z" fill="#FFFFFF"/>
-    </svg>
-  </div>
-
-  <!-- ==================== FONDATEUR ==================== -->
-  <section class="fondateur" id="fondateur">
-    <div class="container">
-      <h2 class="reveal">L'histoire derrière ReBites</h2>
-      <div class="fondateur-content reveal">
-        <div class="fondateur-photo" style="font-size:2.4rem;font-family:'DM Serif Display',serif;color:var(--accent)">M</div>
-        <div class="fondateur-text">
-          <p>Je m'appelle Mehdi. Pendant mes études à Solvay, un prof a dit un truc qui m'a marqué : « Garder un client coûte 5 fois moins cher que d'en trouver un nouveau. » J'ai trouvé ça évident. Puis j'ai regardé autour de moi.</p>
-          <p>Mon coiffeur de quartier, l'esthéticienne de ma mère, le resto du coin. Tous géniaux dans leur métier. Mais aucun n'avait un moyen simple de savoir qui ne revenait plus, ni de les relancer. Les outils existants ? Trop chers, trop compliqués, faits pour des grandes boîtes. Alors j'ai construit celui qui leur manquait.</p>
-          <p class="fondateur-sig">Mehdi, fondateur de ReBites</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WAVE -->
-  <div class="section-wave">
-    <svg viewBox="0 0 1440 50" preserveAspectRatio="none" style="height:50px">
-      <path d="M0,0 L0,30 Q360,55 720,25 Q1080,0 1440,30 L1440,0 Z" fill="#FFFFFF"/>
-    </svg>
-  </div>
-
-  <!-- ==================== FAQ ==================== -->
-  <section class="faq" id="faq">
-    <div class="container">
-      <h2 class="reveal">Tu te demandes sûrement...</h2>
-      <div class="faq-list">
-        <div class="faq-item reveal">
-          <button class="faq-question">
-            Mes clients doivent installer un truc sur leur téléphone ?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer"><p>Non, rien du tout. Ils scannent un QR code à la caisse et c'est fait. Pas d'app, pas de carte, pas de compte à créer. Même ton client de 65 ans y arrive sans souci.</p></div>
-        </div>
-        <div class="faq-item reveal">
-          <button class="faq-question">
-            J'ai pas le temps de passer des heures à configurer un truc...
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer"><p>10 minutes. Tu choisis tes récompenses, tu imprimes ton QR code, c'est lancé. Et si tu bloques, on est là pour te guider pas à pas, par téléphone si tu préfères.</p></div>
-        </div>
-        <div class="faq-item reveal">
-          <button class="faq-question">
-            Et si ça marche pas pour mon commerce ?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer"><p>Tu testes 14 jours sans donner ta carte bancaire. Si au bout de 2 semaines tu ne vois pas la différence, tu ne paies rien. Zéro risque.</p></div>
-        </div>
-        <div class="faq-item reveal">
-          <button class="faq-question">
-            Je suis vraiment nul en informatique, c'est quand même pour moi ?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer"><p>ReBites est fait pour toi, pas pour un ingénieur. Si tu sais envoyer un SMS et scroller sur Instagram, tu sais utiliser ReBites. On a tout simplifié au maximum.</p></div>
-        </div>
-        <div class="faq-item reveal">
-          <button class="faq-question">
-            Je suis pas coincé si je veux arrêter ?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer"><p>Zéro engagement. Tu annules en 2 clics, quand tu veux, sans justification, sans frais cachés. On veut te garder parce que ça marche, pas parce que t'es coincé dans un contrat.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WAVE: FAQ → CTA Final -->
-  <div class="section-wave">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="height:60px">
-      <path d="M0,30 Q360,60 720,30 Q1080,0 1440,30 L1440,60 L0,60 Z" fill="#0B1425"/>
-    </svg>
-  </div>
-
-  <!-- ==================== CTA FINAL ==================== -->
-  <section class="cta-final" id="cta-final">
-    <div class="container">
-      <h2 class="reveal">Tes clients méritent une raison de revenir</h2>
-      <div class="cta-final-badge reveal">Les 50 premiers inscrits : 30 jours gratuits au lieu de 14</div>
-      <p class="cta-sub reveal">Lancement le 1er septembre 2026. Il reste encore des places pour l'offre fondateur, mais pas pour longtemps.</p>
-      <form class="cta-form reveal" id="ctaForm" novalidate>
-        <div class="form-row">
-          <input type="text" name="prenom" placeholder="Ton prénom" required>
-          <input type="email" name="email" placeholder="Ton email pro" required>
-        </div>
-        <select name="commerce" required>
-          <option value="" disabled selected>Quel est ton commerce ?</option>
-          <option value="cafe-restaurant">Café / Restaurant</option>
-          <option value="coiffeur">Salon de coiffure</option>
-          <option value="estheticienne">Institut de beauté / Esthéticienne</option>
-          <option value="autre">Autre commerce</option>
-        </select>
-        <p class="form-error" id="formError">Remplis tous les champs avec un email valide pour continuer.</p>
-        <button type="submit" class="btn btn-accent" style="width:100%;font-size:1.02rem;padding:18px">
-          Je veux mes 30 jours gratuits
-        </button>
+    <!-- Notification -->
+    <div class="notify-box">
+      <p>Soyez les premiers informés du lancement</p>
+      <form class="notify-form" onsubmit="handleSubmit(event)">
+        <input type="email" placeholder="votre@email.com" required>
+        <button type="submit">Me notifier</button>
       </form>
-      <div class="form-success" id="formSuccess">
-        <p style="font-size:1.1rem;font-weight:700;margin-bottom:8px">✓ C'est noté, tu es sur la liste !</p>
-        <p style="font-size:.9rem;opacity:.8">On t'enverra un email avant le lancement avec ton accès. Surveille ta boîte.</p>
-      </div>
-      <p class="cta-legal reveal">Pas de spam. Un email par semaine max. Tu te désinscris en un clic.</p>
     </div>
-  </section>
 
-  <!-- ==================== FOOTER ==================== -->
-  <footer class="footer">
-    <a href="#" class="logo">Re<span>Bites</span></a>
-    <p class="footer-tagline">Tes clients reviennent. Ton commerce grandit.</p>
-    <ul class="footer-links">
-      <li><a href="#">Mentions légales</a></li>
-      <li><a href="#">Politique de confidentialité</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </footer>
+    <!-- Réseaux sociaux -->
+    <div class="socials">
+      <a href="#" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="#" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="mailto:mehdilentz@gmail.com" aria-label="Email">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+    </div>
+
+    <p class="footer-text">&copy; 2026 ReBites. Tous droits réservés.</p>
+  </div>
 
   <script>
-    /* ===== NAVBAR SCROLL ===== */
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
-    }, { passive: true });
-
-    /* ===== MOBILE MENU ===== */
-    const mobileToggle = document.getElementById('mobile-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileClose = document.getElementById('mobile-close');
-    mobileToggle.addEventListener('click', () => mobileMenu.classList.add('open'));
-    mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    document.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-    });
-
-    /* ===== SCROLL REVEAL ===== */
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    /* ===== CALCULATOR ===== */
-    const calcInput = document.getElementById('calcInput');
-    const calcSlider = document.getElementById('calcSlider');
-    const lossMonthEl = document.getElementById('lossMonth');
-    const lossYearEl = document.getElementById('lossYear');
-    const BASKET = 35;
-    const CHURN = 0.10;
-
-    function animateValue(el, start, end, suffix) {
-      const duration = 500;
-      const startTime = performance.now();
-      const step = (now) => {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const current = Math.round(start + (end - start) * eased);
-        el.textContent = current.toLocaleString('fr-FR') + suffix;
-        if (progress < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-      el.classList.remove('pop');
-      void el.offsetWidth;
-      el.classList.add('pop');
-    }
-
-    let prevMonthly = 560, prevYearly = 6720;
-
-    function updateCalc(val) {
-      const v = Math.max(1, Math.min(500, parseInt(val) || 1));
-      const monthly = Math.round(v * 4 * CHURN * BASKET);
-      const yearly = monthly * 12;
-      animateValue(lossMonthEl, prevMonthly, monthly, ' €');
-      animateValue(lossYearEl, prevYearly, yearly, ' €');
-      prevMonthly = monthly;
-      prevYearly = yearly;
-    }
-
-    calcInput.addEventListener('input', () => {
-      calcSlider.value = calcInput.value;
-      updateCalc(calcInput.value);
-    });
-    calcSlider.addEventListener('input', () => {
-      calcInput.value = calcSlider.value;
-      updateCalc(calcSlider.value);
-    });
-
-    /* ===== FAQ ACCORDION ===== */
-    document.querySelectorAll('.faq-question').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.parentElement;
-        const wasOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-        if (!wasOpen) item.classList.add('open');
-      });
-    });
-
-    /* ===== FORM ===== */
-    const selectEl = document.querySelector('.cta-form select');
-    if (selectEl) {
-      selectEl.addEventListener('change', function() {
-        this.classList.toggle('selected', this.value !== '');
-      });
-    }
-
-    const ctaForm = document.getElementById('ctaForm');
-    const formError = document.getElementById('formError');
-    const formSuccess = document.getElementById('formSuccess');
-
-    ctaForm.addEventListener('submit', (e) => {
+    function handleSubmit(e) {
       e.preventDefault();
-      const prenom = ctaForm.prenom.value.trim();
-      const email = ctaForm.email.value.trim();
-      const commerce = ctaForm.commerce.value;
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const input = e.target.querySelector('input');
+      const btn = e.target.querySelector('button');
+      const val = input.value.trim().toLowerCase();
 
-      if (!prenom || !email || !commerce || !emailRegex.test(email)) {
-        formError.classList.add('show');
+      // Mot de passe secret : ton email → accès à la landing page
+      if (val === 'mehdilentz@gmail.com') {
+        window.location.href = 'landing.html';
         return;
       }
-      formError.classList.remove('show');
-      ctaForm.style.display = 'none';
-      formSuccess.classList.add('show');
-    });
 
-    /* ===== 3D TILT ON CARDS ===== */
-    document.querySelectorAll('.sector-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / centerY * -4;
-        const rotateY = (x - centerX) / centerX * 4;
-        card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
+      // Sinon, stocker l'email en localStorage + confirmation
+      var emails = JSON.parse(localStorage.getItem('rebites_emails') || '[]');
+      if (!emails.includes(val)) {
+        emails.push(val);
+        localStorage.setItem('rebites_emails', JSON.stringify(emails));
+      }
+      btn.textContent = 'Merci !';
+      btn.style.background = '#10B981';
+      input.disabled = true;
+      btn.disabled = true;
+    }
   </script>
 </body>
 </html>
