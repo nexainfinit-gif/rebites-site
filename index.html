@@ -266,7 +266,7 @@
   </div>
 
   <script>
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
       e.preventDefault();
       const input = e.target.querySelector('input');
       const btn = e.target.querySelector('button');
@@ -278,16 +278,35 @@
         return;
       }
 
-      // Sinon, stocker l'email en localStorage + confirmation
-      var emails = JSON.parse(localStorage.getItem('rebites_emails') || '[]');
-      if (!emails.includes(val)) {
-        emails.push(val);
-        localStorage.setItem('rebites_emails', JSON.stringify(emails));
+      btn.textContent = '…';
+      btn.disabled = true;
+
+      // Envoi du lead vers l'API Rebites (stocké en DB + notification admin)
+      let sent = false;
+      try {
+        const res = await fetch('https://app.rebites.be/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: val, source: 'rebites.be/coming-soon' }),
+        });
+        sent = res.ok;
+      } catch (_) { /* réseau indisponible — fallback ci-dessous */ }
+
+      // Fallback : si l'API est injoignable, garder une copie locale
+      // (récupérable via la console) pour ne pas perdre le lead silencieusement.
+      if (!sent) {
+        try {
+          var emails = JSON.parse(localStorage.getItem('rebites_emails') || '[]');
+          if (!emails.includes(val)) {
+            emails.push(val);
+            localStorage.setItem('rebites_emails', JSON.stringify(emails));
+          }
+        } catch (_) {}
       }
+
       btn.textContent = 'Merci !';
       btn.style.background = '#10B981';
       input.disabled = true;
-      btn.disabled = true;
     }
   </script>
 </body>
