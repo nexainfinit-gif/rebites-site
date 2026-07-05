@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ReBites · Programme de fidélité pour commerces de proximité</title>
   <meta name="description" content="Programme de fidélité sans app, sans matériel, actif en 10 minutes. Pour cafés, restaurants, coiffeurs et instituts de beauté.">
+  <!-- Page en accès restreint jusqu'au lancement : ne pas indexer.
+       AU LANCEMENT : retirer ce noindex + ajouter landing au sitemap. -->
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <meta name="theme-color" content="#3B82F6">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ReBites">
+  <meta property="og:title" content="ReBites · Programme de fidélité pour commerces de proximité">
+  <meta property="og:description" content="Programme de fidélité sans app, sans matériel, actif en 10 minutes. Pour cafés, restaurants, coiffeurs et instituts de beauté.">
+  <meta property="og:url" content="https://rebites.be/landing.html">
+  <meta property="og:image" content="https://rebites.be/screen/dashboard-overview.png">
+  <meta property="og:locale" content="fr_BE">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ReBites · Programme de fidélité pour commerces de proximité">
+  <meta name="twitter:image" content="https://rebites.be/screen/dashboard-overview.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -387,7 +402,7 @@
       </ul>
       <div class="nav-cta">
         <a href="https://app.rebites.be/dashboard/login" class="btn btn-secondary">Login</a>
-        <a href="#cta-final" class="btn btn-primary">Tester gratuitement</a>
+        <a href="#cta-final" class="btn btn-primary">Démarre maintenant</a>
       </div>
       <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -402,7 +417,7 @@
     <a href="#pricing" class="mobile-link">Tarifs</a>
     <a href="#faq" class="mobile-link">FAQ</a>
     <a href="https://app.rebites.be/dashboard/login" class="btn btn-secondary">Login</a>
-    <a href="#cta-final" class="btn btn-primary">Tester gratuitement</a>
+    <a href="#cta-final" class="btn btn-primary">Démarre maintenant</a>
   </div>
 
   <!-- ==================== HERO ==================== -->
@@ -418,7 +433,7 @@
         <h1 class="reveal reveal-delay-1">Tes clients adorent ce que tu fais. <em>Alors pourquoi ils ne reviennent pas ?</em></h1>
         <p class="hero-sub reveal reveal-delay-2">ReBites, c'est le programme de fidélité qui fait revenir tes clients. Sans app à installer, sans matériel, prêt en 10 minutes.</p>
         <div class="hero-ctas reveal reveal-delay-3">
-          <a href="#cta-final" class="btn btn-primary">Tester gratuitement pendant 14 jours</a>
+          <a href="#cta-final" class="btn btn-primary">Démarre maintenant</a>
           <a href="#solution" class="btn btn-secondary">Voir comment ça marche</a>
         </div>
         <p class="hero-social reveal reveal-delay-4">Lancement le 1er septembre · Déjà 127 commerçants sur la liste d'attente</p>
@@ -599,14 +614,14 @@
     <div class="blob blob-pr"></div>
     <div class="container">
       <h2 class="reveal">Choisis ce qui te correspond</h2>
-      <p class="pricing-sub reveal">Teste 14 jours gratuitement. Pas besoin de carte bancaire. Tu arrêtes quand tu veux.</p>
+      <p class="pricing-sub reveal">Simple, transparent, sans engagement. Tu arrêtes quand tu veux.</p>
       <div class="pricing-grid">
         <div class="pricing-card reveal">
-          <p class="pricing-name">Essentiel</p>
+          <p class="pricing-name">Starter</p>
           <p class="pricing-desc">L'idéal pour commencer à fidéliser</p>
           <div class="pricing-price">
-            <span class="pricing-amount">39,99€</span>
-            <span class="pricing-period">/mois</span>
+            <span class="pricing-amount">25€</span>
+            <span class="pricing-period">HT /mois</span>
           </div>
           <ul class="pricing-features">
             <li>Jusqu'à 200 clients suivis</li>
@@ -616,16 +631,15 @@
             <li>Tes clients reçoivent un email quand ils gagnent un cadeau</li>
             <li>On te répond par email sous 24h</li>
           </ul>
-          <a href="#cta-final" class="btn btn-secondary" style="width:100%">Essayer gratuitement</a>
-          <p class="pricing-guarantee">14 jours gratuits · Tu arrêtes quand tu veux</p>
+          <a href="#cta-final" class="btn btn-secondary" style="width:100%">Choisir Starter</a>
         </div>
         <div class="pricing-card popular reveal reveal-delay-1">
           <div class="pricing-badge">Le choix préféré</div>
-          <p class="pricing-name">Complet</p>
+          <p class="pricing-name">Growth</p>
           <p class="pricing-desc">Pour vraiment garder tes clients</p>
           <div class="pricing-price">
-            <span class="pricing-amount">59,99€</span>
-            <span class="pricing-period">/mois</span>
+            <span class="pricing-amount">40€</span>
+            <span class="pricing-period">HT /mois</span>
           </div>
           <ul class="pricing-features">
             <li>Tous tes clients, sans limite</li>
@@ -636,15 +650,14 @@
             <li>Tout est à tes couleurs, ton logo, ton style</li>
             <li>On te répond en priorité, par email ou par téléphone</li>
           </ul>
-          <a href="#cta-final" class="btn btn-primary" style="width:100%">Essayer gratuitement</a>
-          <p class="pricing-guarantee">14 jours gratuits · Sans carte bancaire · Tu arrêtes quand tu veux</p>
+          <a href="#cta-final" class="btn btn-primary" style="width:100%">Choisir Growth</a>
         </div>
         <div class="pricing-card reveal reveal-delay-2">
-          <p class="pricing-name">Multi</p>
+          <p class="pricing-name">Pro</p>
           <p class="pricing-desc">Pour ceux qui ont plusieurs adresses</p>
           <div class="pricing-price">
-            <span class="pricing-amount">89,99€</span>
-            <span class="pricing-period">/mois</span>
+            <span class="pricing-amount">69€</span>
+            <span class="pricing-period">HT /mois</span>
           </div>
           <ul class="pricing-features">
             <li>Tout ce qui est dans le plan Complet</li>
@@ -655,8 +668,7 @@
             <li>Exporte tes chiffres quand tu en as besoin</li>
             <li>Une personne dédiée pour t'accompagner</li>
           </ul>
-          <a href="#cta-final" class="btn btn-secondary" style="width:100%">Essayer gratuitement</a>
-          <p class="pricing-guarantee">14 jours gratuits · Tu arrêtes quand tu veux</p>
+          <a href="#cta-final" class="btn btn-secondary" style="width:100%">Choisir Pro</a>
         </div>
       </div>
     </div>
