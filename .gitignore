@@ -1,0 +1,25 @@
+# ── Documents business confidentiels — NE JAMAIS COMMITER ──
+# (repo PUBLIC : tout ce qui est pushé est lisible par n'importe qui)
+*.docx
+*.xlsx
+*.pdf
+*.pptx
+.~lock*
+*_RESEARCH.md
+*_Research_*.md
+RESEARCH_SUMMARY.md
+README_PRICING_RESEARCH.md
+SaaS_Pricing_*.md
+QUICK_REFERENCE_*.txt
+
+# Dossiers d'inspiration / travail local
+Inspi cartes/
+Inspiration site/
+inspiration app/
+.playwright-mcp/
+.claude/
+
+# Dépendances
+node_modules/
+dashboard/node_modules/
+dashboard/dist/
