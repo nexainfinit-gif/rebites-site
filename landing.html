@@ -8,7 +8,8 @@
   <!-- Page en accès restreint jusqu'au lancement : ne pas indexer.
        AU LANCEMENT : retirer ce noindex + ajouter landing au sitemap. -->
   <meta name="robots" content="noindex, nofollow">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="apple-touch-icon" href="/brand/rebites-mark.png">
   <meta name="theme-color" content="#3B82F6">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ReBites">
@@ -96,7 +97,8 @@
     .navbar{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;transition:all .4s cubic-bezier(.16,1,.3,1);background:transparent}
     .navbar.scrolled{background:rgba(247,248,252,.88);backdrop-filter:blur(20px) saturate(1.4);box-shadow:0 1px 30px rgba(11,20,37,.05);padding:12px 0}
     .navbar .container{display:flex;align-items:center;justify-content:space-between}
-    .logo{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--dark);letter-spacing:-.01em}
+    .logo{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--dark);letter-spacing:-.01em;display:inline-flex;align-items:center;gap:10px}
+    .logo img{height:34px;width:auto}
     .logo span{color:var(--accent)}
     .nav-links{display:none;gap:36px;list-style:none;align-items:center}
     .nav-links a{font-size:.875rem;font-weight:600;color:var(--gray);transition:color .25s;position:relative}
@@ -394,7 +396,7 @@
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="container">
-      <a href="#" class="logo">Re<span>Bites</span></a>
+      <a href="#" class="logo"><img src="/brand/rebites-mark.png" alt="">Re<span>Bites</span></a>
       <ul class="nav-links">
         <li><a href="#solution">Comment ça marche</a></li>
         <li><a href="#pricing">Tarifs</a></li>
@@ -824,7 +826,7 @@
 
   <!-- ==================== FOOTER ==================== -->
   <footer class="footer">
-    <a href="#" class="logo">Re<span>Bites</span></a>
+    <a href="#" class="logo"><img src="/brand/rebites-mark.png" alt="">Re<span>Bites</span></a>
     <p class="footer-tagline">Tes clients reviennent. Ton commerce grandit.</p>
     <ul class="footer-links">
       <li><a href="#">Mentions légales</a></li>

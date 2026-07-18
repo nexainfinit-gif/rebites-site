@@ -6,7 +6,8 @@
   <title>ReBites · Programme de fidélité pour commerces de proximité</title>
   <meta name="description" content="ReBites arrive bientôt. Programme de fidélité sans app, sans matériel, actif en 10 minutes.">
   <link rel="canonical" href="https://rebites.be/">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="apple-touch-icon" href="/brand/rebites-mark.png">
   <meta name="theme-color" content="#3B82F6">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ReBites">
@@ -25,7 +26,7 @@
     "@type": "Organization",
     "name": "ReBites",
     "url": "https://rebites.be",
-    "logo": "https://rebites.be/favicon.svg",
+    "logo": "https://rebites.be/brand/rebites-logo.png",
     "description": "Programme de fidélité digital pour commerces de proximité : cartes de fidélité Apple Wallet et Google Wallet, sans app à installer."
   }
   </script>
@@ -73,7 +74,9 @@
       letter-spacing:-.01em;
       margin-bottom:48px;
       animation:fadeDown .8s ease-out both;
+      display:flex;align-items:center;justify-content:center;gap:14px;
     }
+    .logo img{height:52px;width:auto}
     .logo span{color:#3B82F6}
 
     /* Icône construction */
@@ -246,7 +249,7 @@
   <div class="wrapper">
 
     <!-- Logo -->
-    <div class="logo">Re<span>Bites</span></div>
+    <div class="logo"><img src="/brand/rebites-mark.png" alt="">Re<span>Bites</span></div>
 
     <!-- Icône -->
     <div class="icon-wrapper">
